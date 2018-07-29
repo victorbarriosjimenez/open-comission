@@ -1,0 +1,25 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "../node_modules/angular-calendar/css/angular-calendar.css";
+@font-face {
+    font-family: 'lemonmilkbold';
+    src: url('assets/fonts/lemonmilkbold-webfont.woff2') format('woff2'),
+         url('assets/fonts/lemonmilkbold-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+$regular-red : #E52828;
+$regular-green: #43AA16;
+
+.home-container {
+    margin-left: 10vh;
+    padding: 50px 50px;
+}
+.full-width {
+    width: 100%;
+    margin: 5px auto;
+}
+.btn-login {
+    background-color: $regular-red;
+    margin: 30px auto;
+    padding: 2.5px 50px;
+}

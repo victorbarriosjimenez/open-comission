@@ -4,14 +4,17 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 // import * as firebase from 'firebase/app';
-import { User,Administrator, Promoter , Supervisor } from '../models/user';
+import { User,  Administrator } from '../models/user';
 import 'rxjs/add/operator/switchMap';
 import { MatSnackBar } from '@angular/material';
+
+// Sehace un registro con distintos tipos de usuarios
+
 @Injectable()
 export class AuthService {
   admin: Observable<Administrator>;
   public loginFormErrorsCode: any;
-  private employeeRef: AngularFirestoreDocument<Supervisor | Promoter>;  
+  private employeeRef: AngularFirestoreDocument<User>;
   public signupFormErrorsCode: any;
   public authState: any = null;
   constructor(private _snackBar: MatSnackBar,
@@ -20,8 +23,9 @@ export class AuthService {
               private router: Router) {
                 this.afAuth.authState.subscribe((auth) => {
                    this.authState = auth
-              }); 
+              });
   }
+  // Creates superAdministrator account
   public createUserWithEmailAndPassword(administrator: Administrator) {
     return this.afAuth.auth.createUserWithEmailAndPassword(administrator.email,administrator.password)
                .then(admin => {
@@ -39,33 +43,34 @@ export class AuthService {
                     case 'auth/weak-password':
                            this.showSnackBarForNotifications('La contraseña no es muy fuerte ¡Intenta con otra contraseña!');
                            break;
-                    default: 
+                    default:
                            return;
                 }
               });
   }
+  // Adds Super Admin to DB
   public setAdministratorToDatabase(admin, adminName) {
     const userRef: AngularFirestoreDocument<Administrator> = this.afs.doc(`administrators/${admin.uid}`);
     const data: Administrator = {
       uid: admin.uid,
       name: adminName,
-      email: admin.email || null,
-      isAdmin: true
+      email: admin.email || null
     }
     return userRef.set(data);
   }
-  public createEmployeeWithEmailAndPassword(employee: Supervisor){
+
+  // Function that creates user, only from the admin forms and permission
+  public createEmployeeWithEmailAndPassword(employee: User){
     return this.afAuth.auth.createUserWithEmailAndPassword(employee.email,employee.password)
                .then(user => {
-                    this.setEmployeeToDatabase(user,employee);
-                    if(employee.employeeKey === 'supervisor'){
-                      this.router.navigate(['/supervisors']);
-                      setTimeout(this.showSnackBarForNotifications('Supervisor Creado'), 3000);
-                    }
-                    else if (employee.employeeKey === 'promoter'){
-                      this.router.navigate(['/promoters']);       
-                      setTimeout(this.showSnackBarForNotifications('Promotor Creado'), 3000);                                     
-                    }
+                    this.setEmployeeToDatabase(user,employee)
+                        .then(() => {
+                          this.router.navigate(['/users']);
+                          this.showSnackBarForNotifications('Supervisor Creado')
+                        })
+                        .catch((err) => {
+                          this.showSnackBarForNotifications("Hubo un error");
+                        });
                }).catch((error) => {
                 this.signupFormErrorsCode = error.code;
                 switch(this.signupFormErrorsCode){
@@ -78,35 +83,27 @@ export class AuthService {
                     case 'auth/weak-password':
                            this.showSnackBarForNotifications('La contraseña no es muy fuerte ¡Intenta con otra contraseña!');
                            break;
-                    default: 
+                    default:
                            return;
                 }
               });
   }
-  public setEmployeeToDatabase(user,employee: Supervisor | Promoter ) {
-    const data: Supervisor | Promoter  = {
-      uid: user.uid,
-      email: employee.email,
-      name:  employee.name ,
-      birthDate: employee.birthDate ,
-      city: employee.city,
-      state: employee.state ,  
-      address: employee.address,                      
-      contractDateBegin: employee.contractDateBegin,             
-      contractDateExp: employee.contractDateExp,
-      postalCode: employee.postalCode,
-      image: employee.image,
-      employeeKey: employee.employeeKey
-    }
-    if(employee.employeeKey === 'supervisor'){
-      this.employeeRef = this.afs.doc(`supervisors/${user.uid}`)
-      return this.employeeRef.set(data);
-    }
-    else if(employee.employeeKey === 'promoter') { 
-      this.employeeRef = this.afs.doc(`promoters/${user.uid}`)
-      return this.employeeRef.set(data);
-    }
+
+  // Creates any employee uploader or loader to the database, depdnding of user type
+  public setEmployeeToDatabase(user,employee: User | User ) {
+      const data: User  = {
+        uid: user.uid,
+        email: employee.email,
+        name:  employee.name,
+        isDataLoader: employee.isDataLoader === true ? true : false,
+        isDataUploader: employee.isDataUploader === true ? true : false,
+        agency: employee.agency
+      }
+      this.employeeRef = this.afs.doc(`users/${user.uid}`)
+    return this.employeeRef.set(data);
   }
+
+  // Will try to login any user
   public loginWithEmailAndPassword(_userloginModel: User) {
     this.afAuth.auth.signInWithEmailAndPassword(_userloginModel.email,_userloginModel.password)
         .then( user => {
@@ -122,20 +119,29 @@ export class AuthService {
                   case 'auth/user-not-found':
                        this.showSnackBarForNotifications('El usuario con este email no ha sido encontrado.');
                        break;
-                  default: 
+                  default:
                       return;
               }
-          } 
+          }
       );
   }
+
   public getAdministratorDocument(uid): Observable<Administrator>{
     return  this.afs.doc(`administrators/${uid}`).valueChanges();
   }
+  public getsDataLoaderDocument(uid): Observable<User> { 
+    return
+  }
+  public getDataUploaderDocument(uid): Observable<User> {
+    return;
+  }
+
   public showSnackBarForNotifications(message: string){ 
     this._snackBar.open(message, "OK", {
         duration: 6000,
     });
   }
+
   public logoutUser() {
     this.afAuth.auth.signOut();
     this.router.navigate(['/login']);
@@ -143,4 +149,5 @@ export class AuthService {
   get authUid(): string { 
 		return this.authState.uid
 	}
+
 }

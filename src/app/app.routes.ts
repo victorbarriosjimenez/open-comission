@@ -10,9 +10,9 @@ import { AuthFollow } from './auth/authentication.follow.guard';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
 const appRoutes: Routes = [  
   { path: '', component: HomeComponent, canActivate: [AuthGuard]},  
-  { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard], data: { animation: 'settings' } },  
   { path: 'login', component: LoginComponent, data: { animation: 'login' } },
-  { path: 'register', component: RegisterComponent, data: { animation: 'login' } }
+  { path: 'register', component: RegisterComponent, data: { animation: 'login' } },
+  { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard], data: { animation: 'settings' } }  
 ];
 @NgModule({
   imports: [

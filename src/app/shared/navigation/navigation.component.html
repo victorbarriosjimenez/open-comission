@@ -1,17 +1,48 @@
-<nav class="aside-bar">   
+<nav *ngIf="admin" class="aside-bar">   
   <a class="brand-name" href="/">N</a>
   <ul class="menu-items">
       <li class="menu-item" (click)="navigate('branches')" matTooltip="Sucursales" matTooltipPosition="after">
-              <mat-icon>location_on</mat-icon>                
-      </li>
-      <li class="menu-item" (click)="navigate('supervisors')" matTooltip="Supervisores" matTooltipPosition="after">
-              <mat-icon>group</mat-icon>                
+       <mat-icon>attach_money</mat-icon>                
       </li>
       <li class="menu-item" (click)="navigate('promoters')" matTooltip="Promotores" matTooltipPosition="after">
-              <mat-icon>person</mat-icon>                
+        <mat-icon>table_chart</mat-icon>                
       </li>
+      <li class="menu-item" (click)="navigate('supervisors')" matTooltip="Supervisores" matTooltipPosition="after">
+        <mat-icon>person</mat-icon>                
+     </li>
+     <li class="menu-item" (click)="navigate('supervisors')" matTooltip="Supervisores" matTooltipPosition="after">
+        <mat-icon>group</mat-icon>                
+     </li>
+     <li class="menu-item" (click)="navigate('promoters')" matTooltip="Promotores" matTooltipPosition="after">
+        <mat-icon>settings</mat-icon>                
+     </li>
       <li (click)="logout()" class="menu-item" matTooltip="Salir de Nixtla" matTooltipPosition="after">
-            <mat-icon>exit_to_app</mat-icon>                
+        <mat-icon>exit_to_app</mat-icon>                
       </li>  
   </ul>
+</nav>
+<nav *ngIf="user.isDataUploader" class="aside-bar">   
+        <a class="brand-name" href="/">N</a>
+        <ul class="menu-items">
+                <li class="menu-item" (click)="navigate('branches')" matTooltip="Sucursales" matTooltipPosition="after">
+                        <mat-icon>location_on</mat-icon>                
+                </li>
+                <li class="menu-item" (click)="navigate('supervisors')" matTooltip="Supervisores" matTooltipPosition="after">
+                        <mat-icon>group</mat-icon>                
+                </li>
+        </ul>
+</nav>
+<nav *ngIf="user.isDataLoader" class="aside-bar">   
+        <a class="brand-name" href="/"></a>
+        <ul class="menu-items">
+                <li class="menu-item" (click)="navigate('branches')" matTooltip="Sucursales" matTooltipPosition="after">
+                        <mat-icon>location_on</mat-icon>                
+                </li>
+                <li class="menu-item" (click)="navigate('supervisors')" matTooltip="Supervisores" matTooltipPosition="after">
+                        <mat-icon>group</mat-icon>                
+                </li>
+                <li class="menu-item" (click)="navigate('promoters')" matTooltip="Promotores" matTooltipPosition="after">
+                        <mat-icon>person</mat-icon>                
+                </li>
+        </ul>
 </nav>

@@ -1,38 +1,17 @@
 // User representa al usuario en general, Administrator, Promoter y Supervisor
-export interface User {
-    uid?: string; // Id 
+export class User {
+    uid?: string; // Id
     name?: string; // Nombre
-    email?: string; //correo electronico 
-    curp?: string; // CURP
-    rfc?: string; //RFC
-    nss?: string; // Numero de seguridad social
-    password?: string; // Contraseña (login)
-    employeeKey?: string; // Tipo de empleado
-    status?: boolean; // Estatus del empleado
-    isDataLoader: boolean;
-    isDataUploader: boolean;
-    agency: string;
-}
-export interface Administrator extends User { 
+    email?: string;
+    password?: string; 
+    isDataLoader?: boolean;
+    isDataUploader?: boolean;
     isAdmin?: boolean;
+    agency?: string;
 }
-export interface Promoter extends User { 
-    city: string;
-    state: string;
-    address: string;
-    contractDateBegin: Date; // Fecha de inicio de contrato
-    contractDateExp: Date; // Fecha de fin de contrato
-    birthDate: Date; // Fecha de nacimiento
-    postalCode: string; //Codigo postal
-    image: string, // Fotografia
-}
-export interface Supervisor extends User {
-    city: string;
-    state: string;
-    address: string;
-    contractDateBegin: Date;
-    contractDateExp: Date;
-    birthDate: Date;
-    postalCode: string;
-    image: string,
+export class Administrator  {
+    uid?: string;
+    name?: string; 
+    email?: string;
+    password?: string;
 }

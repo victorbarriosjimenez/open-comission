@@ -1,5 +1,5 @@
 export class Agency {
-    agencyKey: string
-    name: string
-    address: string
+    agencyKey: string;
+    name: string;
+    address: string;
 }

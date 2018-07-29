@@ -9,11 +9,13 @@ import { AppComponent } from './app.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
-import { SupervisorsModule } from './supervisors/supervisors.module';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { CalendarModule } from 'angular-calendar';
+import { AdministratorModule } from './administrator/administrator.module';
+import { LoaderModule } from './loader/loader.module';
+import { UploaderModule } from './uploader/uploader.module';
 @NgModule({
   declarations: [
     AppComponent
@@ -22,8 +24,7 @@ import { CalendarModule } from 'angular-calendar';
     AngularFireModule.initializeApp(environment.firebase), 
     BrowserAnimationsModule, CalendarModule.forRoot(),  
     CommonModule,
-    RouterModule,  
-    SupervisorsModule,            
+    RouterModule,            
     RoutesModule,    
     BrowserModule,
     HttpClientModule,
@@ -32,7 +33,10 @@ import { CalendarModule } from 'angular-calendar';
     ReactiveFormsModule,
     AngularFireAuthModule,
     AngularFirestoreModule,
-    AuthModule
+    AuthModule,
+    AdministratorModule,
+    LoaderModule,
+    UploaderModule
   ],
   providers: [
   
