@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup,FormControl } from '@angular/forms';
 import { AuthService } from '../authentication.service';
 import { Administrator } from '../../models/user';
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',

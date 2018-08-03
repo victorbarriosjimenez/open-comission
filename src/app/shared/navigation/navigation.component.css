@@ -2,7 +2,7 @@
     position: fixed;
     width: 10vh;
     height: 100vh;
-    background-color: rgb(0, 59, 253); 
+    background-color: #E52828; 
     color: white;
     left: 0; 
     display: flex;
@@ -16,7 +16,7 @@
     color: white;
     margin: 20px auto 10px auto;
     font-size: 3em;
-    font-family: 'lemonmilkbold';
+    font-family: 'Noto Sans', sans-serif; 
     text-decoration: none;          
 }
 .menu-items {

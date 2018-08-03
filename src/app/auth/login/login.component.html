@@ -1,7 +1,7 @@
 <div class="container centered-form">
     <div class="row">
         <div class="col-md-4 offset-md-4 col-sm-4 offset-sm-4 col-xs-12 col-lg-4 offset-lg-4 bordered-form">
-            <h1>OC</h1>
+            <h1>Open Comission</h1>
             <h5 class="text-center">Iniciar sesión</h5>
             <form [formGroup]="loginForm">
                 <mat-form-field class="full-width">
@@ -34,7 +34,7 @@
                             </mat-hint>
                             <mat-error *ngIf="loginForm.controls.passwordFormControl.hasError('required')">
                                 Ingresa tu contraseña
-                         </mat-error>
+                            </mat-error>
                 </mat-form-field>
                 <button (click)="loginToAccountWithEmailAndPassword()" [disabled]="!loginForm.valid" class="btn-login" type="submit" mat-raised-button>
                         ENTRAR

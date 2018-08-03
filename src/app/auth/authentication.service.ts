@@ -41,7 +41,7 @@ export class AuthService {
                            this.showSnackBarForNotifications('Este correo electrónico no es válido, intenta con otro.');
                            break;
                     case 'auth/weak-password':
-                           this.showSnackBarForNotifications('La contraseña no es muy fuerte ¡Intenta con otra contraseña!');
+                           this.showSnackBarForNotlifications('La contraseña no es muy fuerte ¡Intenta con otra contraseña!');
                            break;
                     default:
                            return;

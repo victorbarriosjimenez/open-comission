@@ -7,6 +7,7 @@ import { ReportsComponent } from './reports/reports/reports.component';
 const adminRoutes: Routes = [  
   { path: 'admin',
     children:[
+        
         {  path: 'users', component: UsersComponent },
         {  path: 'sales', component: SalesComponent },
         {  path: 'agencies', component: SalesComponent },
